@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About HemoVeda</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS for the Back to Homepage button */
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            margin-top: 20px; /* Space above the button */
+        }
+        .back-btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="about-section">
+        <h1>About HemoVeda</h1>
+        
+        <h2>Our Mission</h2>
+        <p>
+            HemoVeda is dedicated to improving early detection of anemia using cutting-edge AI technology. We aim to empower healthcare providers and individuals by offering an easy-to-use web app that combines clinical data with eye and palm image analysis for accurate and timely anemia diagnosis.
+        </p>
+
+        <h2>The Problem</h2>
+        <p>
+            Anemia affects over 50% of women in India, often going undiagnosed until it leads to severe health issues like:
+        </p>
+        <ul>
+            <li>Chronic fatigue</li>
+            <li>Poor maternal outcomes</li>
+            <li>Reduced immunity</li>
+        </ul>
+        <p>
+            Lack of timely diagnosis and awareness exacerbates these problems, making early detection critical.
+        </p>
+
+        <h2>Our Solution</h2>
+        <p>
+            HemoVeda’s AI-powered web application analyzes images of the eye (conjunctiva) and palm, alongside blood report data, to accurately predict anemia status. By leveraging Deep Learning algorithms, our tool provides an accessible and affordable solution for anemia detection, especially in areas with limited access to healthcare.
+        </p>
+
+        <h2>How It Works</h2>
+        <ol>
+            <li>
+                <strong>Data Collection:</strong> We gather images of the conjunctiva and palm, as well as blood reports, to create a comprehensive dataset.
+            </li>
+            <li>
+                <strong>AI Model:</strong> Our system uses advanced Deep Learning models to analyze the images and data, offering highly accurate predictions.
+            </li>
+            <li>
+                <strong>Easy Access:</strong> The web app is designed for both healthcare professionals and the general public, ensuring a user-friendly experience that promotes wider usage and awareness.
+            </li>
+        </ol>
+
+        <h2>Why HemoVeda?</h2>
+        <ul>
+            <li><strong>Accurate:</strong> Our AI models have been trained to deliver high accuracy in detecting anemia early on.</li>
+            <li><strong>Affordable:</strong> Accessible through a web app, it offers an affordable alternative to traditional anemia screening methods.</li>
+            <li><strong>Impactful:</strong> Early detection leads to timely treatment, reducing the long-term health effects of anemia and improving the quality of life, particularly for women in underserved regions.</li>
+        </ul>
+
+        <h2>Join Us in Fighting Anemia</h2>
+        <p>
+            With HemoVeda, we aim to make anemia screening accessible, affordable, and effective for everyone. By leveraging AI technology, we’re transforming how anemia is detected and treated across India.
+        </p>
+        <a class="back-btn" href="{{ url_for('home') }}">Back to Homepage</a>
+    </div>
+</body>
+</html>

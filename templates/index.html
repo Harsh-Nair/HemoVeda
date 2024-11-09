@@ -1,0 +1,882 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HemoVeda</title>
+        <style>
+            /* General Styles */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+            }
+
+            /* Header */
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 50px;
+                background-color: white;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .logo {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .nav {
+                display: flex;
+                gap: 20px;
+            }
+
+            .nav-btn {
+                background: none;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+                text-decoration: none;
+                padding: 0;
+                color: #000;
+            }
+
+            /* Main Content */
+            .main-content {
+                text-align: center;
+                padding: 50px;
+            }
+
+            .main-content h1 {
+                font-size: 48px;
+                margin-bottom: 10px;
+            }
+
+            .main-content p {
+                font-size: 18px;
+                margin-bottom: 30px;
+                color: #555;
+            }
+
+            .content-cards {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            /* Updated Card Styles */
+            .card {
+                position: relative;
+                width: 200px;
+                height: 250px;
+                border-radius: 14px;
+                z-index: 1111;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+                background-color: #fff;
+                margin: 20px;
+            }
+
+            .card-content {
+                position: relative;
+                z-index: 3;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                height: 100%;
+                padding: 10px;
+            }
+
+            .card-image {
+                width: 100%;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .card-image img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: cover;
+                position: relative;
+                bottom: -11px;
+            }
+
+            .card h2 {
+                margin: 10px 0;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .card-button {
+                background-color: #ff0000;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-bottom: 10px;
+            }
+
+            .card-button:hover {
+                background-color: #cc0000;
+            }
+
+            /* New Styles for Card Background and Animation */
+            .bg {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                width: 190px;
+                height: 240px;
+                z-index: 2;
+                background: rgba(255, 255, 255, .95);
+                backdrop-filter: blur(24px);
+                border-radius: 10px;
+                overflow: hidden;
+                outline: 2px solid white;
+            }
+
+            .blob {
+                position: absolute;
+                z-index: 1;
+                top: 50%;
+                left: 50%;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: #ff0000;
+                opacity: 1;
+                filter: blur(12px);
+                animation: blob-bounce 5s infinite ease;
+            }
+
+            @keyframes blob-bounce {
+                0% {
+                    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+                }
+
+                25% {
+                    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+                }
+
+                50% {
+                    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+                }
+
+                75% {
+                    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+                }
+
+                100% {
+                    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+                }
+            }
+
+            
+
+            /* Footer */
+            .footer {
+                background-color: #333;
+                color: white;
+                text-align: center;
+                padding: 20px 0;
+                position: relative;
+                bottom: -72px;
+                width:100%;
+            }
+            #bloodReportForm {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+                z-index: 9999;
+                max-width: 400px;
+                width: 90%;
+            }
+
+            #bloodReportForm h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            #bloodReportInputForm {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #bloodReportInputForm label {
+                margin-bottom: 5px;
+            }
+
+            #bloodReportInputForm select,
+            #bloodReportInputForm input[type="number"] {
+                margin-bottom: 15px;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            #bloodReportInputForm button[type="submit"],
+            #bloodReportForm button {
+                background-color: #ff0000;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            #bloodReportInputForm button[type="submit"]:hover,
+            #bloodReportForm button:hover {
+                background-color: #cc0000;
+            }
+
+            #bloodReportResult {
+                margin-top: 15px;
+                text-align: center;
+                font-weight: bold;
+            }
+            .popup, #bloodReportForm {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+                z-index: 9999;
+                max-width: 400px;
+                width: 90%;
+            }
+
+            .popup h2, #bloodReportForm h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .popup form, #bloodReportInputForm {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .popup label, #bloodReportInputForm label {
+                margin-bottom: 5px;
+            }
+
+            .popup input[type="file"],
+            #bloodReportInputForm select,
+            #bloodReportInputForm input[type="number"] {
+                margin-bottom: 15px;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .popup button,
+            #bloodReportInputForm button[type="submit"],
+            #bloodReportForm button {
+                background-color: #ff0000;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            .popup button:hover,
+            #bloodReportInputForm button[type="submit"]:hover,
+            #bloodReportForm button:hover {
+                background-color: #cc0000;
+            }
+
+            .result {
+                margin-top: 15px;
+                text-align: center;
+                font-weight: bold;
+            }
+            .contribute-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .contribute-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Contribute Popup Style */
+        .contribute-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .contribute-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .button-group button {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .cancel-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .view-contributions {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .contributions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contribution-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f8f9fa;
+        }
+
+        .contribution-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .contribution-info {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .contribution-info p {
+            margin: 5px 0;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-data-btn {
+            background-color: #17a2b8;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .view-data-btn:hover {
+            background-color: #138496;
+        }
+
+        .export-btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .export-btn:hover {
+            background-color: #5a6268;
+        }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="logo" onclick="showSection('home')">HemoVeda</div>
+            <nav class="nav">
+                <a class="nav-btn" href="{{ url_for('about') }}">About</a>
+                <a class="nav-btn" href="https://en.wikipedia.org/wiki/Anemia" target="_blank">Disease</a>
+                <a class="nav-btn" href="developers.html">Developers</a>
+                <div class="header-buttons">
+                    <button class="view-data-btn" onclick="showContributions()">View Data</button>
+                    <button class="contribute-btn" onclick="showContributePopup()">Contribute</button>
+                </div>
+            </nav>
+        </header>
+        <div id="contributePopup" class="contribute-popup" style="display: none;">
+            <h2>Contribute to HemoVeda Dataset</h2>
+            <form id="contributeForm" class="contribute-form">
+                <div class="form-group">
+                    <label for="contributeName">Name (Optional):</label>
+                    <input type="text" id="contributeName" name="name">
+                </div>
+    
+                <div class="form-group">
+                    <label for="contributeImage">Image:</label>
+                    <input type="file" id="contributeImage" name="image" accept="image/*" required>
+                    <img id="imagePreview" class="preview-image" alt="Preview">
+                </div>
+    
+                <div class="form-group">
+                    <label for="contributeType">Image Type:</label>
+                    <select id="contributeType" name="type" required>
+                        <option value="">Select type</option>
+                        <option value="palm">Palm</option>
+                        <option value="conjunctiva">Conjunctiva</option>
+                        <option value="tongue">Tongue</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="contributeCondition">Known Condition:</label>
+                    <select id="contributeCondition" name="condition" required>
+                        <option value="">Select condition</option>
+                        <option value="anemic">Anemic</option>
+                        <option value="non-anemic">Non-Anemic</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="contributeNotes">Additional Notes:</label>
+                    <textarea id="contributeNotes" name="notes" rows="3"></textarea>
+                </div>
+    
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">Submit</button>
+                    <button type="button" class="cancel-btn" onclick="closeContributePopup()">Cancel</button>
+                </div>
+            </form>
+        </div>
+        <div id="viewContributionsPopup" class="view-contributions" style="display: none;">
+            <h2>Contributed Data</h2>
+            <button class="export-btn" onclick="exportContributions()">Export JSON</button>
+            <button class="cancel-btn" onclick="closeContributionsPopup()">Close</button>
+            <div id="contributionsGrid" class="contributions-grid">
+                <!-- Contributions will be populated here -->
+            </div>
+        </div>
+    
+
+        <!-- Main Content -->
+        <main class="main-content" id="home">
+            <h1>Get Your Anemia Checkup Fast</h1>
+            <p>You deserve to live an anemia-free life. With HemoVeda, you can check for the presence of anemia.</p>
+            <div class="content-cards">
+                <!-- First Card: Palm Detection -->
+                <div class="card">
+                    <div class="blob"></div>
+                    <div class="bg"></div>
+                    <div class="card-content">
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='images/palm.jpg') }}" alt="Palm Detection">
+                        </div>
+                        <h2>Palm Detection</h2>
+                        <button class="card-button" onclick="showPopup('Palm Detection')">Proceed</button>
+                    </div>
+                </div>
+
+                <!-- Second Card: Conjunctiva Eye Detection -->
+                <div class="card">
+                    <div class="blob"></div>
+                    <div class="bg"></div>
+                    <div class="card-content">
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='images/eye.jpg') }}" alt="Conjunctiva Detection">
+                        </div>
+                        <h2>Conjunctiva Eye Detection</h2>
+                        <button class="card-button" onclick="showPopup('Conjunctiva Eye Detection')">Proceed</button>
+                    </div>
+                </div>
+
+                <!-- Third Card: Blood Report -->
+                <div class="card">
+                    <div class="blob"></div>
+                    <div class="bg"></div>
+                    <div class="card-content">
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='images/testtube.jpg') }}" alt="Blood Report">
+                        </div>
+                        <h2>Blood Report Detection</h2>
+                        <button class="card-button" onclick="showPopup('Blood Report Detection')">Proceed</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal Popup for Image Upload or Capture -->
+        <div id="popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h2 id="popup-title">Palm Detection</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <label for="fileInput">Choose an Image:</label>
+                    <input type="file" id="fileInput" name="file" accept="image/*" required>
+                    <button type="submit">Submit</button>
+                </form>
+                <button onclick="closePopup()">Close</button>
+                <button type="button" onclick="clearFileInput()">Clear</button>
+                <video id="camera" width="320" height="240" autoplay style="display: none;"></video>
+                <button id="captureBtn" style="display: none;" onclick="captureAndSaveImage()">Capture</button>
+                <div id="result" class="result" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+
+        <!-- Blood Report Form -->
+        <div id="bloodReportForm" style="display: none;">
+            <h2>Blood Report Form</h2>
+            <form id="bloodReportInputForm">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                </select><br><br>
+                
+                <label for="haemoglobin">Haemoglobin:</label>
+                <input type="number" id="haemoglobin" name="haemoglobin" step="0.1" required><br><br>
+                
+                <label for="mch">MCH:</label>
+                <input type="number" id="mch" name="mch" step="0.1" required><br><br>
+                
+                <label for="mchc">MCHC:</label>
+                <input type="number" id="mchc" name="mchc" step="0.1" required><br><br>
+                
+                <label for="mcv">MCV:</label>
+                <input type="number" id="mcv" name="mcv" step="0.1" required><br><br>
+                
+                <button type="submit">Submit</button>
+            </form>
+            <button onclick="closePopup()">Close</button>
+            <button type="button" onclick="clearFileInput()">Clear</button>
+            <div id="bloodReportResult" class="result" style="margin-top: 10px;"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Developed in 2024 and inclusive of all rights.</p>
+        </footer>
+
+        <!-- JavaScript -->
+        <script>
+            function showPopup(title) {
+                document.getElementById('popup-title').textContent = title;
+                if (title === 'Blood Report Detection') {
+                    document.getElementById('bloodReportForm').style.display = 'block';
+                    document.getElementById('popup').style.display = 'none';
+                } else {
+                    document.getElementById('popup').style.display = 'block';
+                    document.getElementById('bloodReportForm').style.display = 'none';
+                }
+            }
+
+            function closePopup() {
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('bloodReportForm').style.display = 'none';
+                document.getElementById('result').innerHTML = '';
+                document.getElementById('bloodReportResult').innerHTML = '';
+            }
+
+            // Image upload form submission
+            document.getElementById('uploadForm').onsubmit = async function (event) {
+                event.preventDefault();
+                const fileInput = document.getElementById('fileInput').files[0];
+                if (!fileInput) {
+                    alert("Please select an image.");
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('file', fileInput);
+
+                const title = document.getElementById('popup-title').textContent;
+                const endpoint = title === 'Palm Detection' ? '/predict_palm' : '/predict_conjunctiva';
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        document.getElementById('result').innerHTML = `Prediction: ${result.prediction} (Confidence: ${result.confidence_percentage})`;
+                    } else {
+                        document.getElementById('result').innerHTML = `Error: ${result.error}`;
+                    }
+                } catch (error) {
+                    document.getElementById('result').innerHTML = 'An error occurred while predicting.';
+                }
+            };
+
+            // Blood Report form submission
+            document.getElementById('bloodReportInputForm').onsubmit = async function (event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/predict_blood_report', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        document.getElementById('bloodReportResult').innerHTML = `Prediction: ${result.prediction} (Confidence: ${result.confidence_percentage})`;
+                    } else {
+                        document.getElementById('bloodReportResult').innerHTML = `Error: ${result.error}`;
+                    }
+                } catch (error) {
+                    document.getElementById('bloodReportResult').innerHTML = 'An error occurred while predicting.';
+                }
+            };
+
+            // Placeholder for captureImage function (to be implemented later)
+            function captureImage() {
+                // Placeholder for capturing an image
+                alert("Image capture feature is not implemented yet.");
+            }
+
+            function captureAndSaveImage() {
+                // Placeholder for saving captured image
+                alert("Saving captured image...");
+            }
+            function clearFileInput() {
+            // Clear file input
+            const fileInput = document.getElementById('fileInput');
+            fileInput.value = '';
+            
+            // Clear filename display
+            document.getElementById('selectedFileName').textContent = 'No file selected';
+            
+            // Clear prediction result
+            document.getElementById('result').innerHTML = '';
+            
+            // Also clear the blood report result if it exists
+            const bloodReportResult = document.getElementById('bloodReportResult');
+            if (bloodReportResult) {
+                bloodReportResult.innerHTML = '';
+            }
+        }
+
+        function showContributePopup() {
+            document.getElementById('contributePopup').style.display = 'block';
+        }
+
+        function closeContributePopup() {
+            document.getElementById('contributePopup').style.display = 'none';
+            document.getElementById('contributeForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        }
+
+        // Image preview
+        document.getElementById('contributeImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        document.getElementById('contributeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const file = formData.get('image');
+            
+            // Create contribution object
+            const contribution = {
+                name: formData.get('name'),
+                type: formData.get('type'),
+                condition: formData.get('condition'),
+                notes: formData.get('notes'),
+                timestamp: new Date().toISOString(),
+                image: await getBase64(file)
+            };
+
+            // Store in localStorage (temporary storage)
+            let contributions = JSON.parse(localStorage.getItem('contributions') || '[]');
+            contributions.push(contribution);
+            localStorage.setItem('contributions', JSON.stringify(contributions));
+
+            // Show success message
+            alert('Thank you for your contribution!');
+            closeContributePopup();
+        });
+
+        // Convert file to base64
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+        function showContributions() {
+            const contributionsPopup = document.getElementById('viewContributionsPopup');
+            const grid = document.getElementById('contributionsGrid');
+            grid.innerHTML = ''; // Clear existing content
+
+            // Get contributions from localStorage
+            const contributions = JSON.parse(localStorage.getItem('contributions') || '[]');
+
+            if (contributions.length === 0) {
+                grid.innerHTML = '<p>No contributions yet.</p>';
+                contributionsPopup.style.display = 'block';
+                return;
+            }
+
+            // Create cards for each contribution
+            contributions.forEach((contribution, index) => {
+                const card = document.createElement('div');
+                card.className = 'contribution-card';
+                card.innerHTML = `
+                    <img src="${contribution.image}" alt="Contributed image">
+                    <div class="contribution-info">
+                        <p><strong>Name:</strong> ${contribution.name || 'Anonymous'}</p>
+                        <p><strong>Type:</strong> ${contribution.type}</p>
+                        <p><strong>Condition:</strong> ${contribution.condition}</p>
+                        <p><strong>Date:</strong> ${new Date(contribution.timestamp).toLocaleDateString()}</p>
+                        ${contribution.notes ? `<p><strong>Notes:</strong> ${contribution.notes}</p>` : ''}
+                        <button onclick="deleteContribution(${index})" class="cancel-btn">Delete</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            contributionsPopup.style.display = 'block';
+        }
+
+        // Close contributions popup
+        function closeContributionsPopup() {
+            document.getElementById('viewContributionsPopup').style.display = 'none';
+        }
+
+        // Delete a contribution
+        function deleteContribution(index) {
+            if (confirm('Are you sure you want to delete this contribution?')) {
+                let contributions = JSON.parse(localStorage.getItem('contributions') || '[]');
+                contributions.splice(index, 1);
+                localStorage.setItem('contributions', JSON.stringify(contributions));
+                showContributions(); // Refresh the display
+            }
+        }
+
+        // Export contributions as JSON file
+        function exportContributions() {
+            const contributions = localStorage.getItem('contributions') || '[]';
+            const blob = new Blob([contributions], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hemoveda-contributions.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        </script>
+    </body>
+    </html>
