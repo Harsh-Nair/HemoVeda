@@ -13,12 +13,12 @@ sys.stdout.reconfigure(encoding='utf-8')
 app = Flask(__name__)
 
 
-palm_model = load_model('models/palm_resnet50.h5')
-conjunctiva_model = load_model('models/eye_model_densenet121.h5')
+palm_model = load_model('/path/to/your/saved/trained/model-or-weights')
+conjunctiva_model = load_model('/path/to/your/saved/trained/model-or-weights')
 
 
 try:
-    blood_report_model = joblib.load('models/random_forest_anemia_model.joblib')
+    blood_report_model = joblib.load('/path/to/your/saved/trained/model-or-weights')
 except Exception as e:
     print(f"Error loading the model: {e}")
     blood_report_model = None
