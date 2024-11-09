@@ -543,7 +543,6 @@
             <button class="export-btn" onclick="exportContributions()">Export JSON</button>
             <button class="cancel-btn" onclick="closeContributionsPopup()">Close</button>
             <div id="contributionsGrid" class="contributions-grid">
-                <!-- Contributions will be populated here -->
             </div>
         </div>
     
@@ -645,7 +644,6 @@
             <p>Developed in 2024 and inclusive of all rights.</p>
         </footer>
 
-        <!-- JavaScript -->
         <script>
             function showPopup(title) {
                 document.getElementById('popup-title').textContent = title;
@@ -725,28 +723,18 @@
                 }
             };
 
-            // Placeholder for captureImage function (to be implemented later)
             function captureImage() {
-                // Placeholder for capturing an image
                 alert("Image capture feature is not implemented yet.");
             }
 
             function captureAndSaveImage() {
-                // Placeholder for saving captured image
                 alert("Saving captured image...");
             }
             function clearFileInput() {
-            // Clear file input
             const fileInput = document.getElementById('fileInput');
             fileInput.value = '';
-            
-            // Clear filename display
             document.getElementById('selectedFileName').textContent = 'No file selected';
-            
-            // Clear prediction result
             document.getElementById('result').innerHTML = '';
-            
-            // Also clear the blood report result if it exists
             const bloodReportResult = document.getElementById('bloodReportResult');
             if (bloodReportResult) {
                 bloodReportResult.innerHTML = '';
@@ -763,7 +751,6 @@
             document.getElementById('imagePreview').style.display = 'none';
         }
 
-        // Image preview
         document.getElementById('contributeImage').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -784,7 +771,6 @@
             const formData = new FormData(this);
             const file = formData.get('image');
             
-            // Create contribution object
             const contribution = {
                 name: formData.get('name'),
                 type: formData.get('type'),
@@ -794,17 +780,14 @@
                 image: await getBase64(file)
             };
 
-            // Store in localStorage (temporary storage)
             let contributions = JSON.parse(localStorage.getItem('contributions') || '[]');
             contributions.push(contribution);
             localStorage.setItem('contributions', JSON.stringify(contributions));
 
-            // Show success message
             alert('Thank you for your contribution!');
             closeContributePopup();
         });
 
-        // Convert file to base64
         function getBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -816,9 +799,7 @@
         function showContributions() {
             const contributionsPopup = document.getElementById('viewContributionsPopup');
             const grid = document.getElementById('contributionsGrid');
-            grid.innerHTML = ''; // Clear existing content
-
-            // Get contributions from localStorage
+            grid.innerHTML = '';
             const contributions = JSON.parse(localStorage.getItem('contributions') || '[]');
 
             if (contributions.length === 0) {
@@ -827,7 +808,6 @@
                 return;
             }
 
-            // Create cards for each contribution
             contributions.forEach((contribution, index) => {
                 const card = document.createElement('div');
                 card.className = 'contribution-card';
@@ -848,7 +828,6 @@
             contributionsPopup.style.display = 'block';
         }
 
-        // Close contributions popup
         function closeContributionsPopup() {
             document.getElementById('viewContributionsPopup').style.display = 'none';
         }
@@ -859,7 +838,7 @@
                 let contributions = JSON.parse(localStorage.getItem('contributions') || '[]');
                 contributions.splice(index, 1);
                 localStorage.setItem('contributions', JSON.stringify(contributions));
-                showContributions(); // Refresh the display
+                showContributions();
             }
         }
 

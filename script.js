@@ -1,24 +1,22 @@
 function showSection(section) {
-    // Hide all sections
     document.querySelectorAll('.section').forEach((el) => {
         el.style.display = 'none';
     });
     
-    // Show the selected section
     document.getElementById(section).style.display = 'block';
 }
 
 function showPopup(detectionType) {
     document.getElementById('popup-title').innerText = detectionType;
     document.getElementById('popup').style.display = 'block';
-    document.getElementById('result').innerHTML = '';  // Clear previous result
+    document.getElementById('result').innerHTML = '';
 }
 
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
     document.getElementById('camera').style.display = 'none';
     document.getElementById('captureBtn').style.display = 'none';
-    document.getElementById('result').innerHTML = '';  // Clear result on close
+    document.getElementById('result').innerHTML = '';
 }
 
 function uploadImage() {
@@ -77,14 +75,12 @@ function sendImageToAPI(image) {
     const formData = new FormData();
     formData.append('file', image);
 
-    // Send the image to the backend Flask API
-    fetch('http://localhost:5000/predict', {  // Replace with your actual API URL
+    fetch('http://localhost:5000/predict', { 
         method: 'POST',
         body: formData,
     })
     .then(response => response.json())
     .then(data => {
-        // Display the result
         document.getElementById('result').innerHTML = `Prediction: ${data.prediction}, Confidence: ${data.confidence.toFixed(2)}`;
     })
     .catch(error => {
